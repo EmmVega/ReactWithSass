@@ -6,13 +6,17 @@ const useInitialState = (API) => {
         trends: [],
         originals: [],
      });
+     const [categories, setCategories] = useState([]);
   
-     useEffect(() => {
+    useEffect(() => {
         fetch(API)
-           .then((response) => response.json())
-           .then((data) => setVideos(data));
-     }, []);
-     return videos;
-}
+            .then((response) => response.json())
+            .then((data) => {
+                setVideos(data);
+                setCategories(Object.keys(data));
+            });
+    }, []);
+     return [videos, categories];
+};
 
 export default useInitialState;
